@@ -78,7 +78,7 @@ EOF
             red "不存在/usr/src/trojan-cert/$your_domain目录"
             exit 1
         fi
-        ~/.acme.sh/acme.sh  --register-account  -m myemail@example.com --server zerossl
+        ~/.acme.sh/acme.sh  --set-default-ca --server letsencrypt
         ~/.acme.sh/acme.sh  --issue  -d $your_domain  --nginx
         if test -s /root/.acme.sh/$your_domain/fullchain.cer; then
             cert_success="1"
@@ -89,7 +89,7 @@ EOF
         now_time=`date +%s`
         minus=$(($now_time - $create_time ))
         if [  $minus -gt 5184000 ]; then
-            ~/.acme.sh/acme.sh  --register-account  -m myemail@example.com --server zerossl
+            ~/.acme.sh/acme.sh  --set-default-ca --server letsencrypt
             ~/.acme.sh/acme.sh  --issue  -d $your_domain  --nginx
             if test -s /root/.acme.sh/$your_domain/fullchain.cer; then
                 cert_success="1"
@@ -100,7 +100,7 @@ EOF
         fi        
     else 
         mkdir /usr/src/trojan-cert/$your_domain
-        ~/.acme.sh/acme.sh  --register-account  -m myemail@example.com --server zerossl
+        ~/.acme.sh/acme.sh  --set-default-ca --server letsencrypt
         ~/.acme.sh/acme.sh  --issue  -d $your_domain  --nginx
         if test -s /root/.acme.sh/$your_domain/fullchain.cer; then
             cert_success="1"
